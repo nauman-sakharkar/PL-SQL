@@ -1,0 +1,50 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+  p  VARCHAR2(30);
+  n  NUMBER := 37;
+BEGIN
+  FOR j in 2..ROUND(SQRT(n)) LOOP
+    IF n MOD j = 0 THEN
+      p := ' is not a prime number';
+      GOTO print_now;
+    END IF;
+  END LOOP;
+
+  p := ' is a prime number';
+
+<<print_now>>
+  DBMS_OUTPUT.PUT_LINE(TO_CHAR(n) || p);
+END;
+/
+
+DECLARE
+	I NUMBER:=0;
+BEGIN
+	LOOP
+		IF(I>5) THEN
+			EXIT;
+		ELSE
+			DBMS_OUTPUT.PUT_LINE(I);
+			I:=I+1;
+		END IF;
+	END LOOP;
+END;
+/
+
+DECLARE
+	NUM NUMBER;
+	I NUMBER;
+BEGIN
+	DBMS_OUTPUT.PUT_LINE('ENTER THE NUMBER : ');
+	NUM := &NUM;
+	I := 1;
+	LOOP
+		DBMS_OUTPUT.PUT_LINE(NUM||' * '||I||' = '||NUM*I);
+		I:=I+1;
+		EXIT WHEN I=11;
+	END LOOP;
+END;
+/
+
+COMMIT;

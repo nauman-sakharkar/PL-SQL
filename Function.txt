@@ -1,0 +1,111 @@
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION FINDSUM(NUM NUMBER)
+	RETURN NUMBER IS SUMS NUMBER := 0;
+BEGIN
+	SUMS:=(NUM*(NUM+1))/2;
+	RETURN SUMS;
+END;
+/
+
+DECLARE
+	input NUMBER;
+BEGIN
+	input:=&input;
+	DBMS_OUTPUT.PUT_LINE('Sum of '||input||' number : '||FINDSUM(input));
+END;
+/
+
+--------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION GETSAL(IDS NUMBER)
+	RETURN NUMBER IS V_SAL NUMBER;
+BEGIN
+	SELECT SAL INTO V_SAL FROM EMP WHERE ID=IDS;
+	RETURN V_SAL;
+END;
+/
+
+SELECT GETSAL(8900) FROM DUAL;
+
+--------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION GETSAL(IDS NUMBER)
+	RETURN NUMBER IS 
+	V_SAL NUMBER;
+	V_SAL1 NUMBER:=0;
+BEGIN
+	SELECT SAL INTO V_SAL FROM EMP WHERE ID=IDS;
+	RETURN V_SAL1;
+END;
+/
+
+DECLARE
+	V_ID EMP.ID%TYPE;
+BEGIN
+	V_ID:=&V_ID;
+	DBMS_OUTPUT.PUT_LINE('SAL OF EMPNO '||V_ID||' IS '||GETSAL(V_ID));
+END;
+/
+
+--------------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION FINDSUM(NUM NUMBER) 
+	RETURN NUMBER IS SUMS NUMBER; 
+BEGIN 
+	IF NUM=0 THEN 
+		SUMS := 0; 
+	ELSE 
+		SUMS := NUM+FINDSUM(NUM-1); 
+	END IF; 
+	RETURN SUMS; 
+END;
+/
+
+DECLARE 
+	NUM NUMBER;
+BEGIN
+	NUM:=&NUM;
+	DBMS_OUTPUT.PUT_LINE('SUM OF '||NUM||' NUMBER : '||FINDSUM(NUM));
+END;
+/
+
+--------------------------------------------------------------------
+
+DECLARE
+	counts NUMBER;
+	FUNCTION countemp
+		RETURN NUMBER IS co NUMBER;
+	BEGIN
+		SELECT COUNT(*) INTO co FROM EMP;
+		RETURN co; 
+	END;
+BEGIN
+	counts:=countemp;
+	DBMS_OUTPUT.PUT_LINE(counts);
+END;
+/
+
+--------------------------------------------------------------------
+
+DECLARE
+	n NUMBER;
+	ans NUMBER;
+	FUNCTION factorial(f NUMBER)
+		RETURN NUMBER IS fact NUMBER;
+	BEGIN
+		IF (f=0 OR f=1) THEN
+			RETURN 1;
+		ELSE
+			fact:=f*factorial(f-1);
+			RETURN fact;
+		END IF;
+	END;
+BEGIN
+	n:=&n;
+	ans:=factorial(n);
+	DBMS_OUTPUT.PUT_LINE('Factorial of '||n||' is '||ans);
+END;
+/
+
+COMMIT;

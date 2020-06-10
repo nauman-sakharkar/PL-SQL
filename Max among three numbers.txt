@@ -1,0 +1,60 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+  PROCEDURE p (sales NUMBER)
+  IS
+    bonus  NUMBER := 0;
+  BEGIN 
+    IF sales > 50000 THEN
+      bonus := 1500;
+    ELSIF sales > 35000 THEN
+      bonus := 500;
+    ELSE
+      bonus := 100;
+    END IF;
+
+    DBMS_OUTPUT.PUT_LINE ('Sales = ' || sales || ', bonus = ' || bonus || '.');
+  END p;
+BEGIN
+  p(55000);
+  p(40000);
+  p(30000);
+END;
+/
+
+DECLARE
+  grade CHAR(1);
+BEGIN
+  grade := 'B';
+
+  CASE grade
+    WHEN 'A' THEN DBMS_OUTPUT.PUT_LINE('Excellent');
+    WHEN 'B' THEN DBMS_OUTPUT.PUT_LINE('Very Good');
+    WHEN 'C' THEN DBMS_OUTPUT.PUT_LINE('Good');
+    WHEN 'D' THEN DBMS_OUTPUT.PUT_LINE('Fair');
+    WHEN 'F' THEN DBMS_OUTPUT.PUT_LINE('Poor');
+    ELSE DBMS_OUTPUT.PUT_LINE('No such grade');
+  END CASE;
+END;
+/
+
+DECLARE
+	PROCEDURE maxvalue(a IN NUMBER, b IN NUMBER)
+	AS
+	BEGIN
+		IF (A > B) THEN
+			DBMS_OUTPUT.PUT_LINE(A||' IS MAXIMUM');
+		ELSIF (B > A) THEN
+			DBMS_OUTPUT.PUT_LINE(B||' IS MAXIMUM');
+		ELSE
+			DBMS_OUTPUT.PUT_LINE('BOTH ARE EQUAL');
+		END IF;
+	END;
+BEGIN
+	maxvalue(5,2);
+	maxvalue(84,451);
+	maxvalue(-5,-5);
+END;
+/
+
+COMMIT;

@@ -1,0 +1,31 @@
+SET SERVEROUTPUT ON;
+
+DECLARE
+	l_n_var1 NUMBER:=0;
+BEGIN
+	<<artificial_loop>>
+		l_n_var1:=l_n_var1+1;
+		DBMS_OUTPUT.PUT_LINE(l_n_var1);
+		IF l_n_var1!=10 THEN
+			GOTO artificial_loop;
+		END IF;
+END;
+/
+
+DECLARE
+	n NUMBER;
+	temp NUMBER := 1;
+	fact NUMBER := 1;
+BEGIN
+	n := &n;
+	<<factorial>>
+		fact:=fact*temp;
+		temp:=temp+1;
+		IF (temp!=n+1) THEN
+			GOTO factorial;
+		END IF;
+	DBMS_OUTPUT.PUT_LINE('Factorial of '||n||' is '||fact);
+END;
+/
+
+COMMIT;
